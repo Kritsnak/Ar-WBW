@@ -2,39 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>MindAR Tester</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>WBW WEB AR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
-    <style>
-      /* CSS ที่ทำให้ HTML, BODY, A-SCENE เต็มจอ */
-      html { width: 100%; height: 100%; }
-      body { margin: 0; padding: 0; overflow: hidden; }
-      a-scene {
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      /* --- CSS สำหรับ Video Element ที่ MindAR สร้างขึ้น (แก้ไขจุดนี้) --- */
-      /* selector "a-scene video" จะทำให้ CSS นี้มีผลเฉพาะ video ที่อยู่ภายใต้ a-scene เท่านั้น */
-      a-scene video {
-        width: 100% !important;        /* บังคับความกว้างให้เต็ม 100% ของ a-scene */
-        height: 100% !important;       /* บังคับความสูงให้เต็ม 100% ของ a-scene */
-        object-fit: cover !important;  /* สำคัญ: ทำให้วิดีโอขยายครอบคลุมพื้นที่โดยไม่บิดเบี้ยว */
-        position: absolute !important; /* ยืนยันตำแหน่ง absolute */
-        top: 0 !important;             /* บังคับ top เป็น 0 */
-        left: 0 !important;            /* บังคับ left เป็น 0 */
-        transform: none !important;    /* ลบการแปลง (transform) ที่ไม่ต้องการออกไป */
-        z-index: -1 !important;        /* ให้วิดีโออยู่ด้านหลังเนื้อหา AR แต่ยังคงมองเห็นได้ */
-      }
-      /* --- สิ้นสุด CSS สำหรับ Video Element --- */
-    </style>
   </head>
   <body>
     <a-scene mindar-image="imageTargetSrc: test.mind;"
@@ -51,7 +24,7 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane src="#art" height="1" width="1" position="0 0 0"></a-plane>
+        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
         <a-text value="Marker Found!" color="red" position="0 0.6 0"></a-text>
       </a-entity>
     </a-scene>
