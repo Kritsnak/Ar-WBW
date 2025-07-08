@@ -16,15 +16,47 @@
              device-orientation-permission-ui="enabled: false">
 
       <a-assets>
-        <video id="RED" src="assets/RED_VID.mp4" autoplay muted playsinline loop crossorigin="anonymous"> </video>
+        <video id="RED" src="assets/RED_VID.mp4" muted playsinline loop crossorigin="anonymous"></video>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-video src="#RED" height="1" width="1" position="0 0 0"></a-video>
+      <a-entity mindar-image-target="targetIndex: 0" id="tracker-RED">
+        <a-video id="video-RED" src="#RED" height="1" width="1" position="0 0 0"></a-video>
         <a-text value="RED" color="red" position="0 0.6 0"></a-text>
       </a-entity>
     </a-scene>
+
+    <!-- JS เพื่อ unlock และควบคุมวิดีโอ -->
+    <script>
+      const video = document.querySelector("#RED");
+      const aVideo = document.querySelector("#video-RED");
+      const tracker = document.querySelector("#tracker-RED");
+
+      // ✅ ปลดล็อก video ด้วย user interaction
+      const unlock = () => {
+        if (video) {
+          video.play().then(() => {
+            video.pause();
+            video.currentTime = 0;
+          }).catch((err) => {
+            console.warn("Unlock failed:", err);
+          });
+        }
+      };
+      window.addEventListener("touchstart", unlock, { once: true });
+      window.addEventListener("mousedown", unlock, { once: true });
+
+      // ✅ เล่น/หยุด video ตาม marker
+      document.addEventListener("DOMContentLoaded", () => {
+        tracker.addEventListener("targetFound", () => {
+          video.play();
+        });
+        tracker.addEventListener("targetLost", () => {
+          video.pause();
+          video.currentTime = 0;
+        });
+      });
+    </script>
   </body>
 </html>
